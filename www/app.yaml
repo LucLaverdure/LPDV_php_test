@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+paths:
+  /tag:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tag'
+      responses:
+        '200':
+          description: Tag Tests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tag'
+  /contact_name:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contact_name'
+      responses:
+        '200':
+          description: Contact Name Tests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contact_name'
+components:
+  schemas:
+    tag:
+      type: object
+      properties:
+        level:
+          description: Indicates whether the tag is used by agencies or organizers.
+          type: string
+          enum:
+            - agency
+            - organizer
+        name:
+          description: Name of the tag.
+          type: string
+          minLength: 1
+        private:
+          description: >-
+            Indicates whether an agency tag should be visible by organizers, and vice
+            versa.
+          type: boolean
+          default: false
+        readonly:
+          description: >-
+            Has the value `true` if a tag can only be added to an object by the system
+            or the value `false` if it can manually be added to an object by an
+            authenticated user.
+          type: boolean
+          default: false
+        scopes:
+          description: Array of object types to which the tag may be added to.
+          type: array
+          items:
+            type: string
+            enum:
+              - contact
+              - event
+              - order
+              - organizer
+              - rate
+          minItems: 1
+        score:
+          description: Number of points added to an object having this tag.
+          type: integer
+          minimum: 0
+          default: 0
+      required:
+        - level
+        - name
+        - scopes
+    contact_name:
+      type: object
+      properties:
+        contact_id:
+          description: Contact ID.
+          type: integer
+          minimum: 1
+        first:
+          description: Contact first name.
+          type: string
+          minLength: 1
+        gender:
+          description: Contact gender.
+          type: string
+          enum:
+            - F
+            - M
+            - O
+            - X
+          nullable: true
+        last:
+          description: Contact last name.
+          type: string
+          minLength: 1
+      required:
+        - contact_id
+        - first
+        - last

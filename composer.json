@@ -2,6 +2,10 @@
   "name": "meshmvc/meshmvc",
 
   "require": {
+
+    "league/openapi-psr7-validator": "^0.16",
+    "guzzlehttp/psr7": "^2.6",
+
     "marcj/topsort": "^2.0",
     "mtdowling/jmespath.php": "^2.7",
     "halaxa/json-machine": "^1.1",
